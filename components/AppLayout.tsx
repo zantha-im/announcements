@@ -4,7 +4,7 @@ import * as Icons from 'lucide-react'
 import { useState, type PropsWithChildren, type ReactElement } from 'react'
 import styles from './AppLayout.module.css'
 
-interface NavItem {
+export interface NavItem {
   id: string
   label: string
   icon: React.ReactNode
@@ -18,7 +18,7 @@ interface NavSection {
   items: NavItem[]
 }
 
-const navSections: NavSection[] = [
+export const navSections: NavSection[] = [
   {
     title: 'Announcements',
     items: [
@@ -93,12 +93,16 @@ const navSections: NavSection[] = [
   },
 ]
 
-export default function AppLayout({ children }: PropsWithChildren): ReactElement {
+interface AppLayoutProps extends PropsWithChildren {
+  activeItem?: string
+  onNavClick?: (itemId: string) => void
+}
+
+export default function AppLayout({ children, activeItem = 'announcements-main', onNavClick }: AppLayoutProps): ReactElement {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [activeItem, setActiveItem] = useState('announcements-main')
 
   const handleNavClick = (itemId: string) => {
-    setActiveItem(itemId)
+    onNavClick?.(itemId)
     if (typeof window !== 'undefined' && window.innerWidth <= 768) {
       setSidebarOpen(false)
     }

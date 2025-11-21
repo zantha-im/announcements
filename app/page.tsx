@@ -1,6 +1,6 @@
 'use client'
 
-import AppLayout from '@/components/AppLayout'
+import AppLayout, { navSections } from '@/components/AppLayout'
 import SnippetViewer from '@/components/SnippetViewer'
 import { useState } from 'react'
 
@@ -39,45 +39,23 @@ const contentDescriptions: Record<string, { title: string; description: string }
   },
 }
 
-interface NavItem {
-  id: string
-  type: 'announcements' | 'extended-product'
-  view: 'main' | 'template'
-  template?: string
-}
-
 export default function Home() {
   const [activeItem, setActiveItem] = useState<string>('announcements-main')
 
-  const getNavItem = (itemId: string): NavItem | null => {
-    if (itemId === 'announcements-main') {
-      return { id: itemId, type: 'announcements', view: 'main' }
+  // Find the nav item from navSections
+  let navItem = null
+  for (const section of navSections) {
+    const found = section.items.find((item) => item.id === activeItem)
+    if (found) {
+      navItem = {
+        type: found.type,
+        view: found.view,
+        template: found.template,
+      }
+      break
     }
-    if (itemId === 'announcements-standard') {
-      return { id: itemId, type: 'announcements', view: 'template', template: 'standard' }
-    }
-    if (itemId === 'announcements-product-update') {
-      return { id: itemId, type: 'announcements', view: 'template', template: 'product-update' }
-    }
-    if (itemId === 'announcements-shipping-alert') {
-      return { id: itemId, type: 'announcements', view: 'template', template: 'shipping-alert' }
-    }
-    if (itemId === 'extended-product-main') {
-      return { id: itemId, type: 'extended-product', view: 'main' }
-    }
-    if (itemId === 'extended-product-gallery') {
-      return { id: itemId, type: 'extended-product', view: 'template', template: 'product-gallery' }
-    }
-    if (itemId === 'extended-product-specs') {
-      return { id: itemId, type: 'extended-product', view: 'template', template: 'product-specs' }
-    }
-    if (itemId === 'extended-product-testimonials') {
-      return { id: itemId, type: 'extended-product', view: 'template', template: 'product-testimonials' }
-    }
-    return null
   }
 
-  const navItem = getNavItem(activeItem)
   const desc = contentDescriptions[activeItem]
 
   if (!navItem || !desc) {
@@ -85,7 +63,7 @@ export default function Home() {
   }
 
   return (
-    <AppLayout>
+    <AppLayout activeItem={activeItem} onNavClick={setActiveItem}>
       <SnippetViewer
         contentType={navItem.type}
         view={navItem.view}
