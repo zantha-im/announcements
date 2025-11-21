@@ -220,7 +220,7 @@ await navigator.clipboard.writeText(contentToCopy)
 
 ### Adding New Products
 
-1. Create new directories in `public/content-types/extended-product/skeld/{product-name}/`
+1. Create new directories in `public/content-types/extended-product/{product-brand}/{product-name}/`
 2. Add 4 HTML files: `specifications.html`, `tasting-notes.html`, `maker-comments.html`, `origin-story.html`
 3. Update `components/ProductPreviewInline.tsx` to add product configuration
 4. Update `components/AppLayout.tsx` to add navigation item
@@ -278,22 +278,9 @@ All content is designed to paste directly into Shopify:
 
 ## Architecture & Development
 
-For detailed information about the project structure, adding new content types, and development guidelines, see [ARCHITECTURE.md](ARCHITECTURE.md).
-
 For .windsurf subtree setup and workflows, see [Windsurf README.md](Windsurf%20README.md).
 
 ## Testing & Development
-
-### Testing New Styles
-
-Use the **SKëLD - Cashtal** product as a sandbox:
-
-1. Navigate to SKëLD - Cashtal in the admin UI
-2. Edit HTML files in `public/content-types/extended-product/skeld/cashtal/`
-3. View rendered output in the admin UI
-4. Toggle to HTML view to verify source
-5. Copy to clipboard and test in Shopify
-6. Once verified, copy content to real products (Braaid, Tholtan)
 
 ### Component Testing
 
@@ -304,31 +291,3 @@ Each component can be tested independently:
 3. Toggle between rendered and HTML views
 4. Copy and verify in Shopify
 5. Adjust HTML as needed
-
-## Support
-
-For questions or issues:
-- Check [ARCHITECTURE.md](ARCHITECTURE.md) for detailed documentation
-- Review examples in `public/content-types/extended-product/skeld/cashtal/`
-- Test in the admin UI before deploying to Shopify
-- Use the Cashtal sandbox for experimenting with new styles
-- Use `.windsurf/workflows/` for automation and code review
-
-## Recent Updates
-
-### Latest Features
-
-- ✅ Unified admin hub with sidebar navigation
-- ✅ Accordion-style product component viewer
-- ✅ Dual view modes (rendered + HTML source)
-- ✅ Copy to clipboard with success feedback
-- ✅ Lazy loading for performance
-- ✅ DM Sans typography (Shopify-matched)
-- ✅ Announcements preview with full-height content
-- ✅ SKëLD Cashtal sandbox for testing
-
-### Known Limitations
-
-- Tholtan product content coming soon
-- Announcements currently show example content
-- Product components are read-only in admin (edit HTML files directly)
