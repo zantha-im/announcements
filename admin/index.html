@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Canvas - Admin UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        .content-type-tab {
+            @apply px-4 py-2 rounded-t-lg font-medium cursor-pointer transition-all;
+        }
+        .content-type-tab.active {
+            @apply bg-blue-600 text-white;
+        }
+        .content-type-tab.inactive {
+            @apply bg-gray-700 text-gray-300 hover:bg-gray-600;
+        }
+        .snippet-container {
+            @apply bg-gray-900 rounded-lg p-4 overflow-x-auto;
+        }
+        .copy-btn {
+            @apply absolute top-2 right-2 bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm font-medium transition-colors;
+        }
+        .copy-success {
+            @apply bg-green-600;
+        }
+        .snippet-wrapper {
+            @apply relative;
+        }
+        pre {
+            @apply m-0 text-sm;
+        }
+        code {
+            @apply text-gray-100;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-6 py-6">
+                <h1 class="text-3xl font-bold text-white">HTML Canvas</h1>
+                <p class="text-gray-400 mt-1">Static HTML snippet generator for Shopify</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-6 py-8">
+            <!-- Content Type Tabs -->
+            <div class="flex gap-2 mb-6 border-b border-gray-800">
+                <button class="content-type-tab active" data-type="announcements">
+                    📢 Announcements
+                </button>
+                <button class="content-type-tab inactive" data-type="extended-product">
+                    📦 Extended Product
+                </button>
+            </div>
+
+            <!-- Announcements Section -->
+            <div id="announcements-section" class="content-section">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-2">Announcements</h2>
+                    <p class="text-gray-400 mb-6">Dynamic announcement pages with color-coded banners, responsive design, and anchor navigation.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-gray-900 rounded-lg p-4 border border-gray-800">
+                            <h3 class="font-semibold mb-2">📄 Main Page</h3>
+                            <p class="text-sm text-gray-400 mb-4">Complete announcements page with all styling and structure.</p>
+                            <button class="view-snippet-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors" data-file="announcements-page">View Snippet</button>
+                        </div>
+                        <div class="bg-gray-900 rounded-lg p-4 border border-gray-800">
+                            <h3 class="font-semibold mb-2">📋 Templates</h3>
+                            <p class="text-sm text-gray-400 mb-4">Reusable announcement templates for quick additions.</p>
+                            <select class="template-select bg-gray-800 text-white px-3 py-2 rounded text-sm w-full border border-gray-700">
+                                <option value="">Select a template...</option>
+                                <option value="standard">Standard Announcement</option>
+                                <option value="product-update">Product Update</option>
+                                <option value="shipping-alert">Shipping Alert</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Snippet Display Area -->
+                <div id="announcements-snippet" class="hidden">
+                    <h3 class="text-lg font-semibold mb-4">HTML Snippet</h3>
+                    <div class="snippet-wrapper">
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy to Clipboard</button>
+                        <div class="snippet-container">
+                            <pre><code class="language-html" id="announcements-code"></code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Extended Product Section -->
+            <div id="extended-product-section" class="content-section hidden">
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold mb-2">Extended Product</h2>
+                    <p class="text-gray-400 mb-6">Rich product display with detailed specifications, gallery, and customer testimonials.</p>
+                    
+                    <div class="bg-yellow-900 border border-yellow-700 rounded-lg p-4 mb-6">
+                        <p class="text-sm text-yellow-100">
+                            <strong>⚠️ Coming Soon:</strong> Extended Product type is under development. Check back soon for templates and examples.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gray-900 rounded-lg p-4 border border-gray-800 opacity-50">
+                            <h3 class="font-semibold mb-2">📄 Main Page</h3>
+                            <p class="text-sm text-gray-400 mb-4">Complete product page template.</p>
+                            <button class="view-snippet-btn bg-gray-700 text-gray-400 px-4 py-2 rounded text-sm font-medium cursor-not-allowed" disabled>Coming Soon</button>
+                        </div>
+                        <div class="bg-gray-900 rounded-lg p-4 border border-gray-800 opacity-50">
+                            <h3 class="font-semibold mb-2">📋 Templates</h3>
+                            <p class="text-sm text-gray-400 mb-4">Reusable product component templates.</p>
+                            <select class="template-select bg-gray-800 text-gray-400 px-3 py-2 rounded text-sm w-full border border-gray-700" disabled>
+                                <option>Coming soon...</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 border-t border-gray-800 mt-16">
+            <div class="max-w-7xl mx-auto px-6 py-8">
+                <p class="text-gray-400 text-sm">
+                    HTML Canvas v1.0 • <a href="https://github.com/zantha-im/html-canvas" class="text-blue-400 hover:text-blue-300">GitHub</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.content-type-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const type = tab.dataset.type;
+                
+                // Update tabs
+                document.querySelectorAll('.content-type-tab').forEach(t => {
+                    t.classList.remove('active');
+                    t.classList.add('inactive');
+                });
+                tab.classList.remove('inactive');
+                tab.classList.add('active');
+                
+                // Update sections
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.classList.add('hidden');
+                });
+                document.getElementById(`${type}-section`).classList.remove('hidden');
+            });
+        });
+
+        // View snippet buttons
+        document.querySelectorAll('.view-snippet-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                const file = btn.dataset.file;
+                const section = btn.closest('.content-section');
+                const contentType = section.id.split('-')[0];
+                
+                try {
+                    const response = await fetch(`../content-types/${contentType}/${file === 'announcements-page' ? 'page.html' : file + '.html'}`);
+                    const html = await response.text();
+                    
+                    const codeElement = document.getElementById(`${contentType}-code`);
+                    codeElement.textContent = html;
+                    hljs.highlightElement(codeElement);
+                    
+                    document.getElementById(`${contentType}-snippet`).classList.remove('hidden');
+                    
+                    // Scroll to snippet
+                    setTimeout(() => {
+                        document.getElementById(`${contentType}-snippet`).scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                } catch (error) {
+                    alert('Error loading snippet: ' + error.message);
+                }
+            });
+        });
+
+        // Template selection
+        document.querySelectorAll('.template-select').forEach(select => {
+            select.addEventListener('change', async (e) => {
+                if (!e.target.value) return;
+                
+                const section = e.target.closest('.content-section');
+                const contentType = section.id.split('-')[0];
+                
+                try {
+                    const response = await fetch(`../content-types/${contentType}/templates/${e.target.value}-announcement.html`);
+                    const html = await response.text();
+                    
+                    const codeElement = document.getElementById(`${contentType}-code`);
+                    codeElement.textContent = html;
+                    hljs.highlightElement(codeElement);
+                    
+                    document.getElementById(`${contentType}-snippet`).classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        document.getElementById(`${contentType}-snippet`).scrollIntoView({ behavior: 'smooth' });
+                    }, 100);
+                } catch (error) {
+                    alert('Error loading template: ' + error.message);
+                }
+            });
+        });
+
+        // Copy to clipboard
+        function copyToClipboard(btn) {
+            const codeElement = btn.closest('.snippet-wrapper').querySelector('code');
+            const text = codeElement.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                btn.classList.add('copy-success');
+                
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copy-success');
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy: ' + err);
+            });
+        }
+    </script>
+</body>
+</html>
