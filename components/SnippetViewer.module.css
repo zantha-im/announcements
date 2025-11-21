@@ -1,0 +1,86 @@
+.wrapper {
+  position: relative;
+  margin-top: 24px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.copyBtn {
+  background: var(--btn);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.copyBtn:hover {
+  opacity: 0.9;
+}
+
+.copyBtn.success {
+  background: var(--btn-success);
+}
+
+.container {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.codeBlock {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  padding: 16px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.codeBlock pre {
+  margin: 0;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.codeBlock code {
+  background: none;
+  color: #e0e0e0;
+  padding: 0;
+  border-radius: 0;
+}
+
+.loading {
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.error {
+  padding: 16px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid var(--danger);
+  border-radius: 6px;
+  color: var(--danger);
+  font-size: 14px;
+}

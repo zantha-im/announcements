@@ -1,0 +1,165 @@
+'use client'
+
+import * as Icons from 'lucide-react'
+import { useState, type PropsWithChildren, type ReactElement } from 'react'
+import styles from './AppLayout.module.css'
+
+interface NavItem {
+  id: string
+  label: string
+  icon: React.ReactNode
+  type: 'announcements' | 'extended-product'
+  view: 'main' | 'template'
+  template?: string
+}
+
+interface NavSection {
+  title: string
+  items: NavItem[]
+}
+
+const navSections: NavSection[] = [
+  {
+    title: 'Announcements',
+    items: [
+      {
+        id: 'announcements-main',
+        label: 'Main Page',
+        icon: <Icons.FileText size={16} />,
+        type: 'announcements',
+        view: 'main',
+      },
+      {
+        id: 'announcements-standard',
+        label: 'Standard Template',
+        icon: <Icons.ClipboardList size={16} />,
+        type: 'announcements',
+        view: 'template',
+        template: 'standard',
+      },
+      {
+        id: 'announcements-product-update',
+        label: 'Product Update',
+        icon: <Icons.ClipboardList size={16} />,
+        type: 'announcements',
+        view: 'template',
+        template: 'product-update',
+      },
+      {
+        id: 'announcements-shipping-alert',
+        label: 'Shipping Alert',
+        icon: <Icons.ClipboardList size={16} />,
+        type: 'announcements',
+        view: 'template',
+        template: 'shipping-alert',
+      },
+    ],
+  },
+  {
+    title: 'Extended Product',
+    items: [
+      {
+        id: 'extended-product-main',
+        label: 'Main Page',
+        icon: <Icons.FileText size={16} />,
+        type: 'extended-product',
+        view: 'main',
+      },
+      {
+        id: 'extended-product-gallery',
+        label: 'Gallery Component',
+        icon: <Icons.ImageGallery size={16} />,
+        type: 'extended-product',
+        view: 'template',
+        template: 'product-gallery',
+      },
+      {
+        id: 'extended-product-specs',
+        label: 'Specs Component',
+        icon: <Icons.ListChecks size={16} />,
+        type: 'extended-product',
+        view: 'template',
+        template: 'product-specs',
+      },
+      {
+        id: 'extended-product-testimonials',
+        label: 'Testimonials',
+        icon: <Icons.MessageSquare size={16} />,
+        type: 'extended-product',
+        view: 'template',
+        template: 'product-testimonials',
+      },
+    ],
+  },
+]
+
+export default function AppLayout({ children }: PropsWithChildren): ReactElement {
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [activeItem, setActiveItem] = useState('announcements-main')
+
+  const handleNavClick = (itemId: string) => {
+    setActiveItem(itemId)
+    if (typeof window !== 'undefined' && window.innerWidth <= 768) {
+      setSidebarOpen(false)
+    }
+  }
+
+  return (
+    <div className={styles.app}>
+      <header className={styles.appHeader}>
+        <button
+          className={styles.toggleBtn}
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          aria-label="Toggle menu"
+        >
+          {sidebarOpen ? <Icons.X size={24} /> : <Icons.Menu size={24} />}
+        </button>
+        <div className={styles.headerInfo}>
+          <img src="/site-icon.png" alt="HTML Canvas" className={styles.logo} width={32} height={32} />
+          <h1>HTML Canvas</h1>
+        </div>
+      </header>
+
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
+        <nav className={`${styles.sidebar} ${sidebarOpen ? styles.open : ''}`}>
+          <div className={styles.sidebarHeader}>
+            <h2>Content Types</h2>
+          </div>
+
+          <div className={styles.navContent}>
+            {navSections.map((section) => (
+              <div key={section.title} className={styles.navSection}>
+                <div className={styles.navSectionTitle}>{section.title}</div>
+                {section.items.map((item) => (
+                  <button
+                    key={item.id}
+                    className={`${styles.navItem} ${activeItem === item.id ? styles.active : ''}`}
+                    onClick={() => handleNavClick(item.id)}
+                  >
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </button>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <div className={styles.navFooter} />
+
+          <div className={styles.sidebarFooter}>
+            v1.0 •{' '}
+            <a href="https://github.com/zantha-im/html-canvas" target="_blank" rel="noopener noreferrer">
+              GitHub
+            </a>
+          </div>
+        </nav>
+
+        <main className={styles.main}>
+          <div className={styles.mainContent}>
+            {children}
+          </div>
+        </main>
+      </div>
+    </div>
+  )
+}

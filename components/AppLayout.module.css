@@ -1,0 +1,234 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.appHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--card);
+  border-bottom: 1px solid var(--card-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  justify-content: space-between;
+}
+
+.toggleBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.toggleBtn:hover {
+  background-color: var(--card-border);
+}
+
+.headerInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.headerInfo h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 288px;
+  height: 100vh;
+  background: var(--card);
+  border-right: 1px solid var(--card-border);
+  padding-top: 60px;
+  overflow-y: auto;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarHeader {
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.sidebarHeader h2 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+}
+
+.navContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 12px;
+}
+
+.navSection {
+  margin-bottom: 24px;
+}
+
+.navSectionTitle {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  border-radius: 6px;
+  border-left: 4px solid transparent;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  width: 100%;
+  text-align: left;
+}
+
+.navItem:hover {
+  background-color: var(--card-border);
+  color: var(--text);
+}
+
+.navItem.active {
+  background-color: var(--btn);
+  color: white;
+  border-left-color: #6b9dd9;
+}
+
+.navItem svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.navFooter {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--card-border);
+}
+
+.sidebarFooter {
+  padding: 12px 16px;
+  border-top: 1px solid var(--card-border);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.sidebarFooter a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.sidebarFooter a:hover {
+  text-decoration: underline;
+}
+
+.main {
+  flex: 1;
+  margin-left: 288px;
+  padding: 32px;
+  overflow-y: auto;
+}
+
+.mainContent {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.contentHeader {
+  margin-bottom: 32px;
+}
+
+.contentHeader h2 {
+  margin: 0 0 8px 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.contentHeader p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+/* Scrollbar styling */
+.navContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.navContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.navContent::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 3px;
+}
+
+.navContent::-webkit-scrollbar-thumb:hover {
+  background: #4a5568;
+}
+
+@media (max-width: 768px) {
+  .toggleBtn {
+    display: flex;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 280px;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .main {
+    margin-left: 0;
+    padding: 16px;
+  }
+}
