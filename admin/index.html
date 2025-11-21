@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <style>
-        .content-type-tab {
-            @apply px-4 py-2 rounded-t-lg font-medium cursor-pointer transition-all;
+        .nav-item {
+            @apply px-4 py-3 rounded-lg font-medium cursor-pointer transition-all border-l-4 border-transparent;
         }
-        .content-type-tab.active {
-            @apply bg-blue-600 text-white;
+        .nav-item.active {
+            @apply bg-blue-600 text-white border-l-blue-400;
         }
-        .content-type-tab.inactive {
-            @apply bg-gray-700 text-gray-300 hover:bg-gray-600;
+        .nav-item.inactive {
+            @apply text-gray-400 hover:bg-gray-800 hover:text-gray-200;
         }
         .snippet-container {
             @apply bg-gray-900 rounded-lg p-4 overflow-x-auto;
@@ -35,186 +35,200 @@
         code {
             @apply text-gray-100;
         }
+        .sidebar {
+            @apply w-64 bg-gray-900 border-r border-gray-800 flex flex-col;
+        }
+        .sidebar-header {
+            @apply px-6 py-6 border-b border-gray-800;
+        }
+        .sidebar-nav {
+            @apply flex-1 overflow-y-auto px-4 py-6;
+        }
+        .sidebar-footer {
+            @apply px-6 py-4 border-t border-gray-800 text-xs text-gray-500;
+        }
+        .content-area {
+            @apply flex-1 overflow-y-auto;
+        }
+        .section-group {
+            @apply mb-6;
+        }
+        .section-title {
+            @apply text-xs uppercase font-semibold text-gray-500 px-4 py-2 tracking-wider;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                @apply w-full;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-950 text-gray-100">
-    <div class="min-h-screen">
+    <div class="flex h-screen flex-col">
         <!-- Header -->
-        <header class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
-            <div class="max-w-7xl mx-auto px-6 py-6">
-                <h1 class="text-3xl font-bold text-white">HTML Canvas</h1>
-                <p class="text-gray-400 mt-1">Static HTML snippet generator for Shopify</p>
-            </div>
+        <header class="bg-gray-900 border-b border-gray-800 px-6 py-4">
+            <h1 class="text-2xl font-bold text-white">HTML Canvas</h1>
+            <p class="text-gray-400 text-sm mt-1">Static HTML snippet generator for Shopify</p>
         </header>
 
-        <!-- Main Content -->
-        <main class="max-w-7xl mx-auto px-6 py-8">
-            <!-- Content Type Tabs -->
-            <div class="flex gap-2 mb-6 border-b border-gray-800">
-                <button class="content-type-tab active" data-type="announcements">
-                    📢 Announcements
-                </button>
-                <button class="content-type-tab inactive" data-type="extended-product">
-                    📦 Extended Product
-                </button>
-            </div>
+        <!-- Main Content Area -->
+        <div class="flex flex-1 overflow-hidden">
+            <!-- Left Sidebar Navigation -->
+            <nav class="sidebar">
+                <div class="sidebar-header">
+                    <h2 class="text-sm font-semibold text-gray-300">Content Types</h2>
+                </div>
 
-            <!-- Announcements Section -->
-            <div id="announcements-section" class="content-section">
-                <div class="mb-8">
-                    <h2 class="text-2xl font-bold mb-2">Announcements</h2>
-                    <p class="text-gray-400 mb-6">Dynamic announcement pages with color-coded banners, responsive design, and anchor navigation.</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        <div class="bg-gray-900 rounded-lg p-4 border border-gray-800">
-                            <h3 class="font-semibold mb-2">📄 Main Page</h3>
-                            <p class="text-sm text-gray-400 mb-4">Complete announcements page with all styling and structure.</p>
-                            <button class="view-snippet-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition-colors" data-file="announcements-page">View Snippet</button>
-                        </div>
-                        <div class="bg-gray-900 rounded-lg p-4 border border-gray-800">
-                            <h3 class="font-semibold mb-2">📋 Templates</h3>
-                            <p class="text-sm text-gray-400 mb-4">Reusable announcement templates for quick additions.</p>
-                            <select class="template-select bg-gray-800 text-white px-3 py-2 rounded text-sm w-full border border-gray-700">
-                                <option value="">Select a template...</option>
-                                <option value="standard">Standard Announcement</option>
-                                <option value="product-update">Product Update</option>
-                                <option value="shipping-alert">Shipping Alert</option>
-                            </select>
-                        </div>
+                <div class="sidebar-nav">
+                    <!-- Announcements Section -->
+                    <div class="section-group">
+                        <div class="section-title">Announcements</div>
+                        <button class="nav-item active w-full text-left" data-type="announcements" data-view="main">
+                            <span class="text-lg">📄</span> Main Page
+                        </button>
+                        <button class="nav-item inactive w-full text-left" data-type="announcements" data-view="template" data-template="standard">
+                            <span class="text-lg">📋</span> Standard Template
+                        </button>
+                        <button class="nav-item inactive w-full text-left" data-type="announcements" data-view="template" data-template="product-update">
+                            <span class="text-lg">📋</span> Product Update
+                        </button>
+                        <button class="nav-item inactive w-full text-left" data-type="announcements" data-view="template" data-template="shipping-alert">
+                            <span class="text-lg">📋</span> Shipping Alert
+                        </button>
                     </div>
+
+                    <!-- Extended Product Section -->
+                    <div class="section-group">
+                        <div class="section-title">Extended Product</div>
+                        <button class="nav-item inactive w-full text-left" data-type="extended-product" data-view="main">
+                            <span class="text-lg">📄</span> Main Page
+                        </button>
+                        <button class="nav-item inactive w-full text-left" data-type="extended-product" data-view="template" data-template="product-gallery">
+                            <span class="text-lg">📋</span> Gallery Component
+                        </button>
+                        <button class="nav-item inactive w-full text-left" data-type="extended-product" data-view="template" data-template="product-specs">
+                            <span class="text-lg">📋</span> Specs Component
+                        </button>
+                        <button class="nav-item inactive w-full text-left" data-type="extended-product" data-view="template" data-template="product-testimonials">
+                            <span class="text-lg">📋</span> Testimonials
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sidebar-footer">
+                    <p>v1.0 • <a href="https://github.com/zantha-im/html-canvas" class="text-blue-400 hover:text-blue-300">GitHub</a></p>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="content-area flex-1 p-8">
+                <!-- Content Header -->
+                <div class="mb-8">
+                    <h2 id="content-title" class="text-3xl font-bold mb-2">Announcements Main Page</h2>
+                    <p id="content-description" class="text-gray-400">Dynamic announcement pages with color-coded banners, responsive design, and anchor navigation.</p>
                 </div>
 
                 <!-- Snippet Display Area -->
-                <div id="announcements-snippet" class="hidden">
-                    <h3 class="text-lg font-semibold mb-4">HTML Snippet</h3>
-                    <div class="snippet-wrapper">
-                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy to Clipboard</button>
-                        <div class="snippet-container">
-                            <pre><code class="language-html" id="announcements-code"></code></pre>
-                        </div>
+                <div class="snippet-wrapper">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy to Clipboard</button>
+                    <div class="snippet-container">
+                        <pre><code class="language-html" id="snippet-code"></code></pre>
                     </div>
                 </div>
-            </div>
-
-            <!-- Extended Product Section -->
-            <div id="extended-product-section" class="content-section hidden">
-                <div class="mb-8">
-                    <h2 class="text-2xl font-bold mb-2">Extended Product</h2>
-                    <p class="text-gray-400 mb-6">Rich product display with detailed specifications, gallery, and customer testimonials.</p>
-                    
-                    <div class="bg-yellow-900 border border-yellow-700 rounded-lg p-4 mb-6">
-                        <p class="text-sm text-yellow-100">
-                            <strong>⚠️ Coming Soon:</strong> Extended Product type is under development. Check back soon for templates and examples.
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-gray-900 rounded-lg p-4 border border-gray-800 opacity-50">
-                            <h3 class="font-semibold mb-2">📄 Main Page</h3>
-                            <p class="text-sm text-gray-400 mb-4">Complete product page template.</p>
-                            <button class="view-snippet-btn bg-gray-700 text-gray-400 px-4 py-2 rounded text-sm font-medium cursor-not-allowed" disabled>Coming Soon</button>
-                        </div>
-                        <div class="bg-gray-900 rounded-lg p-4 border border-gray-800 opacity-50">
-                            <h3 class="font-semibold mb-2">📋 Templates</h3>
-                            <p class="text-sm text-gray-400 mb-4">Reusable product component templates.</p>
-                            <select class="template-select bg-gray-800 text-gray-400 px-3 py-2 rounded text-sm w-full border border-gray-700" disabled>
-                                <option>Coming soon...</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="bg-gray-900 border-t border-gray-800 mt-16">
-            <div class="max-w-7xl mx-auto px-6 py-8">
-                <p class="text-gray-400 text-sm">
-                    HTML Canvas v1.0 • <a href="https://github.com/zantha-im/html-canvas" class="text-blue-400 hover:text-blue-300">GitHub</a>
-                </p>
-            </div>
-        </footer>
+            </main>
+        </div>
     </div>
 
     <script>
-        // Tab switching
-        document.querySelectorAll('.content-type-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                const type = tab.dataset.type;
-                
-                // Update tabs
-                document.querySelectorAll('.content-type-tab').forEach(t => {
-                    t.classList.remove('active');
-                    t.classList.add('inactive');
-                });
-                tab.classList.remove('inactive');
-                tab.classList.add('active');
-                
-                // Update sections
-                document.querySelectorAll('.content-section').forEach(section => {
-                    section.classList.add('hidden');
-                });
-                document.getElementById(`${type}-section`).classList.remove('hidden');
-            });
-        });
+        // Content descriptions
+        const contentDescriptions = {
+            'announcements-main': {
+                title: 'Announcements Main Page',
+                description: 'Dynamic announcement pages with color-coded banners, responsive design, and anchor navigation.'
+            },
+            'announcements-standard': {
+                title: 'Standard Announcement Template',
+                description: 'Basic announcement template for quick additions to your announcements page.'
+            },
+            'announcements-product-update': {
+                title: 'Product Update Template',
+                description: 'Specialized announcement template for product-focused updates and releases.'
+            },
+            'announcements-shipping-alert': {
+                title: 'Shipping Alert Template',
+                description: 'Template for shipping, logistics, and service-related announcements.'
+            },
+            'extended-product-main': {
+                title: 'Extended Product Main Page',
+                description: 'Rich product showcase with gallery, specifications, features, and customer testimonials.'
+            },
+            'extended-product-product-gallery': {
+                title: 'Product Gallery Component',
+                description: 'Multi-image gallery with thumbnail navigation for product showcase.'
+            },
+            'extended-product-product-specs': {
+                title: 'Product Specifications Component',
+                description: 'Responsive specifications grid for displaying product details.'
+            },
+            'extended-product-product-testimonials': {
+                title: 'Product Testimonials Component',
+                description: 'Customer review cards with ratings and testimonial text.'
+            }
+        };
 
-        // View snippet buttons
-        document.querySelectorAll('.view-snippet-btn').forEach(btn => {
-            btn.addEventListener('click', async () => {
-                const file = btn.dataset.file;
-                const section = btn.closest('.content-section');
-                const contentType = section.id.split('-')[0];
+        // Navigation item click handler
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', async () => {
+                const contentType = item.dataset.type;
+                const view = item.dataset.view;
+                const template = item.dataset.template;
+                
+                // Update active state
+                document.querySelectorAll('.nav-item').forEach(i => {
+                    i.classList.remove('active');
+                    i.classList.add('inactive');
+                });
+                item.classList.remove('inactive');
+                item.classList.add('active');
+                
+                // Determine file path
+                let filePath;
+                let descKey;
+                
+                if (view === 'main') {
+                    filePath = `../content-types/${contentType}/page.html`;
+                    descKey = `${contentType}-main`;
+                } else {
+                    filePath = `../content-types/${contentType}/templates/${template}.html`;
+                    descKey = `${contentType}-${template}`;
+                }
                 
                 try {
-                    const response = await fetch(`../content-types/${contentType}/${file === 'announcements-page' ? 'page.html' : file + '.html'}`);
-                    const html = await response.text();
+                    const response = await fetch(filePath);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
                     
-                    const codeElement = document.getElementById(`${contentType}-code`);
+                    const html = await response.text();
+                    const codeElement = document.getElementById('snippet-code');
                     codeElement.textContent = html;
                     hljs.highlightElement(codeElement);
                     
-                    document.getElementById(`${contentType}-snippet`).classList.remove('hidden');
+                    // Update header
+                    const desc = contentDescriptions[descKey];
+                    document.getElementById('content-title').textContent = desc.title;
+                    document.getElementById('content-description').textContent = desc.description;
                     
-                    // Scroll to snippet
-                    setTimeout(() => {
-                        document.getElementById(`${contentType}-snippet`).scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
                 } catch (error) {
-                    alert('Error loading snippet: ' + error.message);
+                    document.getElementById('snippet-code').textContent = `Error loading snippet: ${error.message}`;
                 }
             });
         });
 
-        // Template selection
-        document.querySelectorAll('.template-select').forEach(select => {
-            select.addEventListener('change', async (e) => {
-                if (!e.target.value) return;
-                
-                const section = e.target.closest('.content-section');
-                const contentType = section.id.split('-')[0];
-                
-                try {
-                    const response = await fetch(`../content-types/${contentType}/templates/${e.target.value}-announcement.html`);
-                    const html = await response.text();
-                    
-                    const codeElement = document.getElementById(`${contentType}-code`);
-                    codeElement.textContent = html;
-                    hljs.highlightElement(codeElement);
-                    
-                    document.getElementById(`${contentType}-snippet`).classList.remove('hidden');
-                    
-                    setTimeout(() => {
-                        document.getElementById(`${contentType}-snippet`).scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
-                } catch (error) {
-                    alert('Error loading template: ' + error.message);
-                }
-            });
-        });
+        // Load initial snippet
+        document.querySelector('[data-type="announcements"][data-view="main"]').click();
 
         // Copy to clipboard
         function copyToClipboard(btn) {
-            const codeElement = btn.closest('.snippet-wrapper').querySelector('code');
+            const codeElement = document.getElementById('snippet-code');
             const text = codeElement.textContent;
             
             navigator.clipboard.writeText(text).then(() => {
