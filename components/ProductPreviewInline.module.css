@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
 .header {
   margin-bottom: 24px;
 }
@@ -68,7 +70,45 @@
 .componentLabel {
   font-size: 15px;
   font-weight: 600;
+  color: white;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 12px;
+}
+
+.viewToggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.viewBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.viewBtn:hover:not(.active) {
   color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.viewBtn.active {
+  background: var(--btn);
+  color: white;
 }
 
 .copyIconBtn {
@@ -76,7 +116,6 @@
   border: 1px solid var(--card-border);
   color: var(--text-secondary);
   padding: 8px 12px;
-  margin-right: 12px;
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -130,6 +169,7 @@
 
 .componentContent {
   padding: 24px;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .componentContent :global(ul),
@@ -164,4 +204,28 @@
 .componentContent :global(h5) {
   margin: 12px 0 6px 0;
   font-size: 14px;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.componentContent :global(h5 em) {
+  font-weight: 700;
+  font-style: italic;
+}
+
+.htmlView {
+  padding: 24px;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.htmlView code {
+  color: var(--text-primary);
+  white-space: pre;
 }

@@ -1,0 +1,179 @@
+.header {
+  margin-bottom: 24px;
+}
+
+.container {
+  background: var(--card);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.headerBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border-bottom: 1px solid var(--card-border);
+  gap: 12px;
+}
+
+.viewToggle {
+  display: flex;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.viewBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewBtn:hover:not(.active) {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.viewBtn.active {
+  background: var(--btn);
+  color: white;
+}
+
+.copyBtn {
+  background: transparent;
+  border: 1px solid var(--card-border);
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.copyBtn:hover:not(:disabled) {
+  background: var(--btn);
+  border-color: var(--btn);
+  color: white;
+}
+
+.copyBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.copyBtn.copiedSuccess {
+  background: var(--btn-success);
+  border-color: var(--btn-success);
+  color: white;
+}
+
+.content {
+  flex: 1;
+  overflow-y: visible;
+}
+
+.loading {
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.placeholder {
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.renderedContent {
+  padding: 24px;
+}
+
+.renderedContent :global(h2) {
+  margin: 24px 0 12px 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.renderedContent :global(h3) {
+  margin: 16px 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.renderedContent :global(h4) {
+  margin: 12px 0 6px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.renderedContent :global(p) {
+  margin: 12px 0;
+  line-height: 1.6;
+}
+
+.renderedContent :global(ul),
+.renderedContent :global(ol) {
+  margin: 12px 0;
+  padding-left: 24px;
+}
+
+.renderedContent :global(li) {
+  margin: 6px 0;
+  line-height: 1.6;
+}
+
+.renderedContent :global(strong) {
+  font-weight: 600;
+}
+
+.renderedContent :global(em) {
+  font-style: italic;
+}
+
+.renderedContent :global(a) {
+  color: var(--btn);
+  text-decoration: none;
+}
+
+.renderedContent :global(a:hover) {
+  text-decoration: underline;
+}
+
+.renderedContent :global(img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 12px 0;
+}
+
+.htmlView {
+  padding: 24px;
+  margin: 0;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 0;
+  overflow-x: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.htmlView code {
+  color: var(--text-primary);
+  white-space: pre;
+}

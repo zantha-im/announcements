@@ -1,8 +1,8 @@
 'use client'
 
+import AnnouncementsPreview from '@/components/AnnouncementsPreview'
 import AppLayout, { navSections } from '@/components/AppLayout'
 import ProductPreviewInline from '@/components/ProductPreviewInline'
-import SnippetViewer from '@/components/SnippetViewer'
 import { useState } from 'react'
 
 interface Product {
@@ -67,16 +67,14 @@ export default function Home() {
     )
   }
 
-  // Show snippet viewer for announcements
-  return (
-    <AppLayout activeItem={activeItem} onNavClick={setActiveItem}>
-      <SnippetViewer
-        contentType={navItem.type}
-        view={navItem.view}
-        template={navItem.template}
-        title={desc.title}
-        description={desc.description}
-      />
-    </AppLayout>
-  )
+  // Show announcements preview
+  if (navItem.type === 'announcements') {
+    return (
+      <AppLayout activeItem={activeItem} onNavClick={setActiveItem}>
+        <AnnouncementsPreview title={desc.title} description={desc.description} />
+      </AppLayout>
+    )
+  }
+
+  return null
 }

@@ -24,7 +24,7 @@ export const navSections: NavSection[] = [
     items: [
       {
         id: 'announcements-main',
-        label: 'Preview Main Page',
+        label: 'Preview',
         icon: <Icons.FileText size={16} />,
         type: 'announcements',
         view: 'main',

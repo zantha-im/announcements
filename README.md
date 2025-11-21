@@ -1,17 +1,19 @@
 # HTML Canvas
 
-A professional NextJS application for generating static HTML snippets optimized for Shopify's HTML editor. Create beautiful, responsive pages for announcements, products, and more with a modern admin interface.
+A professional NextJS 16 admin interface for managing and previewing product content and announcements. View, edit, and copy HTML snippets optimized for Shopify with a modern, intuitive UI.
 
 ## Features
 
-- **NextJS + React**: Modern component-based architecture
-- **Multiple Content Types**: Announcements, Extended Products, and more
-- **Professional Admin UI**: Sidebar navigation, syntax highlighting, copy-to-clipboard
-- **Reusable Templates**: Mix-and-match components for quick customization
+- **NextJS 16 + React 18**: Modern component-based architecture with App Router
+- **Unified Admin Hub**: Sidebar navigation with Announcements and Extended Products
+- **Product Preview**: Accordion-style component viewer with collapsible sections
+- **Dual View Modes**: Toggle between rendered preview and HTML source code
+- **Copy to Clipboard**: One-click copying of component HTML with success feedback
+- **Lazy Loading**: Efficient content loading on hover/expand
+- **DM Sans Typography**: Matches Shopify's design system exactly
 - **CSS Modules**: Scoped, maintainable styling system
 - **Responsive Design**: Perfect on desktop, tablet, and mobile devices
-- **Accessible**: Semantic HTML with proper keyboard navigation
-- **Shopify-Ready**: All snippets work directly in Shopify's HTML editor
+- **Shopify-Ready**: All content works directly in Shopify's HTML editor
 - **Developer Tooling**: .windsurf subtree with ESLint, TypeScript, and automation workflows
 
 ## Quick Start
@@ -46,69 +48,107 @@ npm start
 
 ```
 html-canvas/
-├── app/                           # NextJS app directory
-│   ├── layout.tsx                # Root layout with metadata
-│   ├── page.tsx                  # Main page with state management
-│   ├── globals.css               # Global styles
-│   └── page.tsx
-├── components/                    # React components
-│   ├── AppLayout.tsx             # Sidebar + header layout
-│   ├── AppLayout.module.css      # Layout styles
-│   ├── SnippetViewer.tsx         # Code display component
-│   └── SnippetViewer.module.css  # Snippet viewer styles
-├── styles/
-│   └── theme.css                 # Design system (colors, spacing, typography)
-├── public/                        # Static assets
+├── app/                                    # NextJS 16 App Router
+│   ├── layout.tsx                         # Root layout with metadata
+│   ├── page.tsx                           # Main admin page with navigation
+│   ├── page.module.css                    # Main page styles
+│   ├── globals.css                        # Global styles
+│   └── product-preview/                   # Legacy product preview page
+├── components/                             # React components
+│   ├── AppLayout.tsx                      # Sidebar + header layout
+│   ├── AppLayout.module.css               # Layout styles
+│   ├── ProductPreviewInline.tsx           # Inline product preview component
+│   ├── ProductPreviewInline.module.css    # Product preview styles
+│   ├── AnnouncementsPreview.tsx           # Announcements preview component
+│   ├── AnnouncementsPreview.module.css    # Announcements styles
+│   ├── SnippetViewer.tsx                  # Legacy code display component
+│   └── SnippetViewer.module.css           # Snippet viewer styles
+├── public/                                 # Static assets
 │   ├── favicon.ico
 │   ├── site-icon.png
-│   └── content-types/            # HTML snippets
+│   └── content-types/                     # HTML snippets for Shopify
 │       ├── announcements/
+│       │   └── page.html
 │       └── extended-product/
-├── .windsurf/                     # Portable developer tooling (git subtree)
-│   ├── workflows/                # Automation workflows
-│   ├── guides/                   # Reference documentation
-│   ├── tools/                    # Utility scripts
-│   └── review/                   # Code review tooling
-├── package.json                  # NextJS dependencies
-├── tsconfig.json                 # TypeScript configuration
-├── next.config.js                # NextJS configuration
-├── README.md                      # This file
-├── ARCHITECTURE.md               # Detailed architecture guide
-└── Windsurf README.md            # .windsurf subtree setup guide
+│           └── skeld/
+│               ├── braaid/
+│               │   ├── specifications.html
+│               │   ├── tasting-notes.html
+│               │   ├── maker-comments.html
+│               │   └── origin-story.html
+│               ├── tholtan/
+│               │   ├── specifications.html
+│               │   ├── tasting-notes.html
+│               │   ├── maker-comments.html
+│               │   └── origin-story.html
+│               └── cashtal/
+│                   ├── specifications.html
+│                   ├── tasting-notes.html
+│                   ├── maker-comments.html
+│                   └── origin-story.html
+├── .windsurf/                              # Portable developer tooling (git subtree)
+│   ├── workflows/                         # Automation workflows
+│   ├── guides/                            # Reference documentation
+│   ├── tools/                             # Utility scripts
+│   └── review/                            # Code review tooling
+├── package.json                           # NextJS dependencies
+├── tsconfig.json                          # TypeScript configuration
+├── next.config.js                         # NextJS configuration
+├── README.md                              # This file
+├── ARCHITECTURE.md                        # Detailed architecture guide
+└── Windsurf README.md                     # .windsurf subtree setup guide
 ```
 
-## Content Types
+## Admin Interface
 
-### Announcements
+### Main Page (`/`)
 
-Dynamic announcement pages for communicating updates, service changes, and important information.
+The main page serves as a unified hub for content management with:
 
-**Features**:
-- Color-coded banners (success, warning, danger, primary)
-- Responsive grid layouts
-- Anchor-based navigation for deep linking
-- Smooth scrolling with offset support
-- Hover effects and transitions
+- **Sidebar Navigation**: Browse all content types and products
+- **Dynamic Content Loading**: Click to view product previews or announcements
+- **State Management**: Active item tracking with React hooks
 
-**Files**:
-- `public/content-types/announcements/page.html` - Complete page
-- `public/content-types/announcements/templates/` - Reusable templates
+### Announcements Preview
 
-### Extended Product
+View and manage announcement content with:
 
-Rich product showcase pages with detailed specifications, image galleries, and customer testimonials.
+- **Header Bar**: Title and description
+- **View Toggle**: Switch between rendered and HTML source views
+- **Copy Button**: Copy entire announcement to clipboard
+- **Full-Height Content**: Scrollable announcements without inner scrollbars
+- **Rendered View**: Formatted HTML with proper styling
+- **HTML View**: Raw HTML source in monospace font
 
-**Features**:
-- Multi-image gallery with thumbnail navigation
-- Specifications grid
-- Feature highlights with icons
-- Customer testimonial cards
-- Call-to-action section
-- Fully responsive design
+**Navigation**: Click "Preview" under ANNOUNCEMENTS in sidebar
 
-**Files**:
-- `public/content-types/extended-product/page.html` - Complete page
-- `public/content-types/extended-product/templates/` - Product components
+### Product Preview
+
+View and manage product components with:
+
+- **Accordion Interface**: Only one component expanded at a time
+- **Component Sections**: Specifications, Tasting Notes, Maker Comments, Origin Story
+- **Lazy Loading**: Content loads on hover for performance
+- **View Toggle**: Rendered or HTML source for each component
+- **Copy Buttons**: Copy individual component HTML
+- **Success Feedback**: Visual confirmation on copy
+- **DM Sans Font**: Matches Shopify typography exactly
+
+**Navigation**: Click any product under EXTENDED PRODUCTS in sidebar
+
+### Products
+
+Currently supported products:
+
+- **SKëLD - Braaid**: Spirit-Infused Aromatic Snuff
+- **SKëLD - Tholtan**: (Coming soon with real content)
+- **SKëLD - Cashtal**: Sandbox for testing formatting and styles
+
+Each product has 4 components:
+1. **Specifications** - Product details and attributes
+2. **Tasting Notes** - Flavor profile and experience
+3. **Maker Comments** - Creator insights and story
+4. **Origin Story** - Product history and inspiration
 
 ## Development
 
@@ -136,18 +176,65 @@ The `.windsurf/workflows/` directory contains automation workflows:
 /code-review-fix
 ```
 
+## Key Features Explained
+
+### Accordion Component Behavior
+
+Product components use an accordion pattern where opening one component automatically closes all others:
+
+```typescript
+// Only one component expanded at a time
+if (expandedComponents[component.id]) {
+  // Close it
+} else {
+  // Close all, open this one
+}
+```
+
+### Lazy Loading
+
+Content is loaded on hover for performance:
+
+```typescript
+onMouseEnter={() => loadComponent(component.id, component.path)}
+```
+
+### View Toggle
+
+Each component can be viewed in two modes:
+
+1. **Rendered View** (default): Formatted HTML with styling
+2. **HTML View**: Raw HTML source in monospace font
+
+### Copy to Clipboard
+
+Extracts inner HTML content and copies to clipboard with success feedback:
+
+```typescript
+const contentDiv = doc.querySelector('div')
+const contentToCopy = contentDiv.innerHTML
+await navigator.clipboard.writeText(contentToCopy)
+```
+
 ## Customization
+
+### Adding New Products
+
+1. Create new directories in `public/content-types/extended-product/skeld/{product-name}/`
+2. Add 4 HTML files: `specifications.html`, `tasting-notes.html`, `maker-comments.html`, `origin-story.html`
+3. Update `components/ProductPreviewInline.tsx` to add product configuration
+4. Update `components/AppLayout.tsx` to add navigation item
+5. Update `app/page.tsx` to add content description
 
 ### Changing Colors
 
-The theme system uses CSS custom properties in `styles/theme.css`:
+The theme system uses CSS custom properties in `app/globals.css`:
 
 ```css
 :root {
-    --bg: #1E2128;                 /* Main background */
+    --bg-primary: #1E2128;         /* Main background */
     --card: #252831;               /* Card background */
-    --text: #FFFFFF;               /* Main text */
-    --link: #4471BA;               /* Link color */
+    --text-primary: #FFFFFF;       /* Main text */
     --btn: #4471BA;                /* Button color */
     /* ... and more */
 }
@@ -155,30 +242,39 @@ The theme system uses CSS custom properties in `styles/theme.css`:
 
 Update these variables to customize the entire app appearance.
 
-### Adding New Content Types
+### Updating Typography
 
-1. Create a new directory in `public/content-types/`
-2. Add `page.html` and `templates/` subdirectory
-3. Update `components/AppLayout.tsx` to add navigation items
-4. Update `app/page.tsx` to add content descriptions
-5. Test in the admin UI
+The app uses DM Sans font from Google Fonts. To change:
+
+1. Update `@import` in `ProductPreviewInline.module.css`
+2. Update `font-family` in `.componentContent` class
+3. Adjust font weights as needed (400, 500, 600, 700 available)
 
 ## Shopify Integration
 
-All snippets are designed to paste directly into Shopify:
+All content is designed to paste directly into Shopify:
 
 1. Go to your Shopify admin → Pages
 2. Create or edit a page
 3. Click "Show HTML" or switch to HTML editor
-4. Copy snippet from HTML Canvas admin UI
+4. Copy snippet from HTML Canvas admin UI (use the copy button)
 5. Paste the entire snippet
 6. Save and publish
 
+**Workflow**:
+
+1. **Preview in Admin UI**: View rendered content and toggle to HTML
+2. **Copy HTML**: Click copy button to copy to clipboard
+3. **Paste in Shopify**: Paste into Shopify page HTML editor
+4. **Verify**: Check rendered output in Shopify
+5. **Publish**: Save and publish the page
+
 **Important**:
-- Tailwind CSS is loaded via CDN in snippets
-- Google Fonts are loaded via CDN in snippets
-- No build process required for snippets
-- All styles are self-contained
+- Content uses DM Sans font (matches Shopify's design system)
+- HTML is self-contained with no external dependencies
+- All styles are inline or included in the HTML
+- No build process required - paste and go
+- Test in Cashtal sandbox before deploying real content
 
 ## Architecture & Development
 
@@ -186,10 +282,53 @@ For detailed information about the project structure, adding new content types, 
 
 For .windsurf subtree setup and workflows, see [Windsurf README.md](Windsurf%20README.md).
 
+## Testing & Development
+
+### Testing New Styles
+
+Use the **SKëLD - Cashtal** product as a sandbox:
+
+1. Navigate to SKëLD - Cashtal in the admin UI
+2. Edit HTML files in `public/content-types/extended-product/skeld/cashtal/`
+3. View rendered output in the admin UI
+4. Toggle to HTML view to verify source
+5. Copy to clipboard and test in Shopify
+6. Once verified, copy content to real products (Braaid, Tholtan)
+
+### Component Testing
+
+Each component can be tested independently:
+
+1. Click a product in the sidebar
+2. Expand a component (e.g., Specifications)
+3. Toggle between rendered and HTML views
+4. Copy and verify in Shopify
+5. Adjust HTML as needed
+
 ## Support
 
 For questions or issues:
 - Check [ARCHITECTURE.md](ARCHITECTURE.md) for detailed documentation
-- Review template examples in `public/content-types/*/templates/`
-- Test snippets in the admin UI before deploying to Shopify
+- Review examples in `public/content-types/extended-product/skeld/cashtal/`
+- Test in the admin UI before deploying to Shopify
+- Use the Cashtal sandbox for experimenting with new styles
 - Use `.windsurf/workflows/` for automation and code review
+
+## Recent Updates
+
+### Latest Features
+
+- ✅ Unified admin hub with sidebar navigation
+- ✅ Accordion-style product component viewer
+- ✅ Dual view modes (rendered + HTML source)
+- ✅ Copy to clipboard with success feedback
+- ✅ Lazy loading for performance
+- ✅ DM Sans typography (Shopify-matched)
+- ✅ Announcements preview with full-height content
+- ✅ SKëLD Cashtal sandbox for testing
+
+### Known Limitations
+
+- Tholtan product content coming soon
+- Announcements currently show example content
+- Product components are read-only in admin (edit HTML files directly)
